@@ -7,6 +7,11 @@ import clsx from "clsx";
 import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer";
 
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
+
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -42,7 +47,6 @@ export default function RootLayout({
             <main className="text-text mx-auto pt-8 w-11/12">
               {children}
             </main>
-
 
           </div>
 

@@ -17,6 +17,7 @@ import { link as linkStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
+import { Dispatch, SetStateAction } from "react";
 
 export const Navbar = () => {
   const searchInput = (
