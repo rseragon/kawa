@@ -57,11 +57,33 @@ export async function getAllBlogPostDetails(): Promise<matter.GrayMatterFile<str
     /* Link blog url */
     matterResult.data.url = '/blog/' + mdfile.replace(/\.md$/, '')
 
+    // Convert date for sorting
+    if (!matterResult.data.date)
+      matterResult.data.date = new Date(0)
+    else
+      matterResult.data.date = new Date(matterResult.data.date)
+
+    // Get the first 3 non-whitespace line for blog peek
+    const lines = matterResult.content.split('\n')
+    matterResult.data.peek = ''
+    let count = 0
+    for (let line of lines) {
+      if (line.trim().length !== 0) {
+        matterResult.data.peek += line.trim();
+        count += 1;
+      }
+      if (count === 2)
+        break;
+    }
+
     info.push(matterResult)
   }
 
-  console.log(info[2])
-  return info
+  console.log(info[0].content.split('\n'))
+
+  return info.sort((a, b) => {
+    return b.data.date.valueOf() - a.data.date.valueOf()
+  })
 }
 
 export function renderMDToHtml(blogId: string): MarkDownContent {

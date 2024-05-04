@@ -15,8 +15,6 @@ export async function generateStaticParams() {
   }))
 }
 
-/* Generate html from the markdown file */
-
 export default function BlogPost({ params }: { params: { id: string } }) {
   const blogId = params.id;
 

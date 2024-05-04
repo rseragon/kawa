@@ -12,6 +12,7 @@ export type MarkDownContent = {
     date?: string | undefined,
     categories?: string[] | undefined,
     tags?: string[] | undefined,
+    peek?: string | undefined, /* First line of blog */
     url: string
   }
 }
