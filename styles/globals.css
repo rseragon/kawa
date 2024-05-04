@@ -1,0 +1,38 @@
+@import "@catppuccin/highlightjs/css/catppuccin-mocha.css";
+@import "@catppuccin/highlightjs/css/catppuccin.variables.css";
+
+@import "https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@main/github-markdown.css";
+@import "https://cdn.jsdelivr.net/gh/jaywcjlove/remark-github-blockquote-alert@main/alert.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background-color: #1e1e1e;
+}
+
+code {
+  text-wrap: pretty;
+}
+
+/* Ref: https://github.com/sindresorhus/github-markdown-css/issues/110#issuecomment-1912366815 */
+.markdown-body {
+  --base-size-8: 8px;
+  --base-size-16: 16px;
+}
+
+
+ul {
+  list-style-type: disc;
+}
+
+/* Nested lists with circle */
+ul ul {
+  list-style-type: circle;
+}
+
+/* Just for better spacing */
+li {
+  margin: 5px 0;
+}
