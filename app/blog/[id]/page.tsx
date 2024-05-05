@@ -1,3 +1,4 @@
+import { Navbar } from '@/components/navbar';
 import { getBlogPostFileNames, renderMDToHtml } from '@/lib/blogUtils';
 import { MarkDownContent } from '@/types';
 

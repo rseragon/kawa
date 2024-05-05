@@ -44,10 +44,43 @@ export const getBlogPostFileNames = () => {
   return filenames;
 }
 
-export async function getAllBlogPostDetails(): Promise<matter.GrayMatterFile<string>[]> {
+function constructMarkDownContent(data: matter.GrayMatterFile<string>, renderedContent?: string, blogUrl: string = '/blog'): MarkDownContent {
+  // Convert date for sorting
+  let date = data.data.date;
+  if (!date)
+    date = new Date(0)
+  else
+    date = new Date(data.data.date)
+
+  // Get the first 3 non-whitespace line for blog peek
+  let peek = ''
+  const lines = data.content.split('\n')
+  let count = 0
+  for (let line of lines) {
+    if (line.trim().length !== 0) {
+      peek += line.trim();
+      count += 1;
+    }
+    if (count === 2)
+      break;
+  }
+
+  return {
+    content: renderedContent ?? data.content, // Puhsin in the renderedContent (md->html) else go with normal string content
+    data: {
+      ...data.data,
+      url: blogUrl,
+      date: date,
+      peek: peek,
+    }
+  }
+}
+
+/* Reads the content of the file and gives some metadata for rendering */
+export function getAllBlogPostDetails(): MarkDownContent[] {
   const filenames = getBlogPostFileNames()
 
-  const info: matter.GrayMatterFile<string>[] = []
+  const info: MarkDownContent[] = []
 
   for (let mdfile of filenames) {
     const filename = postsDirectory + '/' + mdfile;
@@ -55,37 +88,19 @@ export async function getAllBlogPostDetails(): Promise<matter.GrayMatterFile<str
     const matterResult = matter(fileContent)
 
     /* Link blog url */
-    matterResult.data.url = '/blog/' + mdfile.replace(/\.md$/, '')
+    let blogUrl = '/blog/' + mdfile.replace(/\.md$/, '')
 
-    // Convert date for sorting
-    if (!matterResult.data.date)
-      matterResult.data.date = new Date(0)
-    else
-      matterResult.data.date = new Date(matterResult.data.date)
+    const data = constructMarkDownContent(matterResult, String(matterResult.content), blogUrl)
 
-    // Get the first 3 non-whitespace line for blog peek
-    const lines = matterResult.content.split('\n')
-    matterResult.data.peek = ''
-    let count = 0
-    for (let line of lines) {
-      if (line.trim().length !== 0) {
-        matterResult.data.peek += line.trim();
-        count += 1;
-      }
-      if (count === 2)
-        break;
-    }
-
-    info.push(matterResult)
+    info.push(data)
   }
-
-  console.log(info[0].content.split('\n'))
 
   return info.sort((a, b) => {
     return b.data.date.valueOf() - a.data.date.valueOf()
   })
 }
 
+/* Generates the real html file for rendering */
 export function renderMDToHtml(blogId: string): MarkDownContent {
 
   const fileName = postsDirectory + '/' + blogId + '.md'
@@ -95,6 +110,7 @@ export function renderMDToHtml(blogId: string): MarkDownContent {
       content: `Path not found: ${blogId}`,
       data: {
         url: '/404',
+        date: new Date()
       }
     }
   }
@@ -105,8 +121,8 @@ export function renderMDToHtml(blogId: string): MarkDownContent {
 
   const html = remarkProcessor.processSync(matterResult.content)
 
-  return {
-    content: String(html),
-    data: { ...matterResult.data, url: '/blog/' + blogId }
-  }
+  let blogUrl = '/blog/' + blogId
+
+  return constructMarkDownContent(matterResult, String(html), blogUrl)
+
 }

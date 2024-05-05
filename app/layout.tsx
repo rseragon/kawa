@@ -9,6 +9,7 @@ import Footer from "@/components/footer";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { getAllBlogPostDetails } from "@/lib/blogUtils";
 config.autoAddCss = false;
 
 
@@ -29,6 +30,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const blogContent = getAllBlogPostDetails()
+
   return (
     <html lang="en">
       <head />
@@ -40,9 +44,9 @@ export default function RootLayout({
       >
         <div className="flex w-full">
           <Sidebar />
-          <div className="relative flex flex-col w-5/6">
+          <div className="relative flex flex-col w-[calc(100dvw-4rem)]">
 
-            <Navbar />
+            <Navbar blogContents={blogContent} />
 
             <main className="text-text mx-auto pt-8 w-11/12">
               {children}

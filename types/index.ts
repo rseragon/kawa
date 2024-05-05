@@ -9,7 +9,7 @@ export type MarkDownContent = {
   data: {
     image?: string | undefined,
     title?: string | undefined,
-    date?: string | undefined,
+    date: Date,
     categories?: string[] | undefined,
     tags?: string[] | undefined,
     peek?: string | undefined, /* First line of blog */

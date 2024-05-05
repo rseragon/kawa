@@ -7,7 +7,7 @@ import { faBars, faFolderOpen, faGift, faHouse, faInfo, faInfoCircle } from '@fo
 import { faGithub, faReact } from "@fortawesome/free-brands-svg-icons";
 
 export default function Sidebar() {
-  const [showFullSidebar, setShowFullSidebar] = useState(true);
+  const [showFullSidebar, setShowFullSidebar] = useState(false);
 
   useEffect(() => {
     if (window === undefined)
@@ -19,7 +19,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className={`lg:hidden absolute top-0 z-50`}>
+      <div className={`lg:hidden fixed top-0 z-50`}>
         <div className={`h-16 bg-mantle flex items-center justify-center w-16 p-4`} onClick={() => setShowFullSidebar(prev => !prev)}>
           <FontAwesomeIcon icon={faBars} size="2xl" color="white" />
         </div>
@@ -31,19 +31,19 @@ export default function Sidebar() {
 
       {/* for bigger screens */}
       <div className={`hidden lg:block w-[260px] min-h-screen bg-mantle pb-4`}>
-        <SideBarContents />
+        <SideBarContents className="fixed" />
       </div>
     </>
   );
 }
 
 
-function SideBarContents({ toggleSideBar }: { toggleSideBar?: Dispatch<SetStateAction<boolean>> | undefined }) {
+function SideBarContents({ toggleSideBar, className }: { toggleSideBar?: Dispatch<SetStateAction<boolean>> | undefined, className?: string }) {
 
   const onClickHandler = toggleSideBar !== undefined ? () => toggleSideBar(false) : () => { }
 
 
-  return <div className={`flex flex-col mt-8 m-4 h-[calc(100dvh-4rem)]`}>
+  return <div className={`flex flex-col w-[260px] mt-8 m-4 h-[calc(100dvh-4rem)] ${className ?? ''}`}>
     <header className="my-10 pr-10 pl-5 w-full">
       <Link href={"/"} className="">
         <img src={"https://cdn.jsdelivr.net/gh/rseragon/blog-assets@main/public/icon.png"}

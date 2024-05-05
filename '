@@ -27,7 +27,7 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
 
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchList, setSearchList] = useState<MarkDownContent[]>([])
-  const searchRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef(null);
 
   const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (!blogContents) {
@@ -53,17 +53,6 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
     setSearchList(blogList)
   }
 
-  const focusChangehandler = (focused: boolean) => {
-    if (focused)
-      setSearchFocused(true)
-
-    //@ts-ignore
-    if (searchRef.current && searchRef.current.contains(document.activeElement)) {
-      return;
-    }
-    setSearchFocused(focused)
-  }
-
   const searchInput = (
     <div className="w-full">
       <Input
@@ -82,16 +71,10 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
         placeholder="Search..."
         startContent={<p></p>}
         type="search"
-        onFocusChange={focusChangehandler}
+        onFocusChange={(focused) => setSearchFocused(focused)}
         onChange={onInputChangeHandler}
       />
-      <div className={`overflow-y-auto max-h-80 absolute z-60 bg-surface0 shadow rounded mt-4 p-4 mr-4 ${(searchFocused && searchList.length > 0) ? '' : 'hidden'}`}
-        onTouchStart={() => {
-          //@ts-ignore
-          console.log(searchRef.current)
-          setSearchFocused(true)
-        }}
-      >
+      <div className={`overflow-y-auto max-h-80 absolute z-60 bg-surface0 shadow rounded mt-4 p-4 mr-4 ${(searchFocused && searchList.length > 0) ? '' : 'hidden'}`}>
         <ul className="list-none">
           {searchList.map((blog, idx) => {
             return <li key={idx}>
