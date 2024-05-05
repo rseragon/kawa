@@ -30,7 +30,7 @@ export default function Sidebar() {
       </div>
 
       {/* for bigger screens */}
-      <div className={`hidden lg:block w-[260px] min-h-screen bg-mantle pb-4`}>
+      <div className={`hidden lg:block w-[280px] min-h-screen bg-mantle pb-4`}>
         <SideBarContents className="fixed" />
       </div>
     </>
@@ -43,7 +43,7 @@ function SideBarContents({ toggleSideBar, className }: { toggleSideBar?: Dispatc
   const onClickHandler = toggleSideBar !== undefined ? () => toggleSideBar(false) : () => { }
 
 
-  return <div className={`flex flex-col w-[260px] mt-8 m-4 h-[calc(100dvh-4rem)] ${className ?? ''}`}>
+  return <div className={`flex flex-col w-min mt-8 m-4 h-[calc(100dvh-4rem)] ${className ?? ''}`}>
     <header className="my-10 pr-10 pl-5 w-full">
       <Link href={"/"} className="">
         <img src={"https://cdn.jsdelivr.net/gh/rseragon/blog-assets@main/public/icon.png"}
@@ -62,7 +62,7 @@ function SideBarContents({ toggleSideBar, className }: { toggleSideBar?: Dispatc
       </div>
     </header>
 
-    <nav className="flex flex-col grow w-full text-text">
+    <nav className="flex flex-col grow w-[220px] text-text">
       <ul className="mb-5 flex flex-wrap list-none">
         <SideBarNavItem href="/" onClickHandler={onClickHandler}>
           <FontAwesomeIcon icon={faHouse} className="mr-5" />
