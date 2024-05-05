@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import clsx from "clsx";
 import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer";
+import { Providers } from "@/app/providers";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -42,22 +43,24 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <div className="flex w-full">
-          <Sidebar />
-          <div className="relative flex flex-col w-full">
+        <Providers>
+          <div className="flex w-full">
+            <Sidebar />
+            <div className="relative flex flex-col w-full">
 
-            <Navbar blogContents={blogContent} />
+              <Navbar blogContents={blogContent} />
 
-            <main className="text-text p-8 w-full mb-8">
-              {children}
-            </main>
+              <main className="text-text p-8 w-full mb-8">
+                {children}
+              </main>
+
+            </div>
 
           </div>
 
-        </div>
+          <Footer />
 
-        <Footer />
-
+        </Providers>
       </body>
     </html>
   );
