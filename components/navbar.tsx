@@ -114,9 +114,9 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
   );
 
   return (
-    <NextUINavbar className="ml-16 lg:ml-0 bg-mantle w-full text-text" isBlurred={true}>
+    <NextUINavbar className="ml-16 lg:ml-0 bg-mantle w-[calc(100dvw-4rem)] lg:w-full text-text " isBlurred={true}>
       <NavbarContent className={`items-center font-bold ${searchFocused ? 'hidden' : 'hidden lg:flex'}`}>
-        Home
+        /ˈkɑːwə/
       </NavbarContent>
 
       <NavbarContent className={`lg:hidden font-bold ${searchFocused ? 'hidden' : ''}`}>

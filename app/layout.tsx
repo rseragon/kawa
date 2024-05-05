@@ -44,11 +44,11 @@ export default function RootLayout({
       >
         <div className="flex w-full">
           <Sidebar />
-          <div className="relative flex flex-col w-[calc(100dvw-4rem)]">
+          <div className="relative flex flex-col w-full">
 
             <Navbar blogContents={blogContent} />
 
-            <main className="text-text mx-auto pt-8 w-11/12">
+            <main className="text-text p-8 w-full mb-8">
               {children}
             </main>
 
