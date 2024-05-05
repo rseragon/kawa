@@ -1,10 +1,9 @@
-
-import matter from "gray-matter";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import Link from "next/link";
+import { MarkDownContent } from "@/types";
 
 
-export default function BlogList({ posts }: { posts: matter.GrayMatterFile<string>[] }) {
+export default function BlogList({ posts }: { posts: MarkDownContent[] }) {
   return <div className="flex flex-col gap-4">
     {
       posts.map((post, idx) => {

@@ -120,7 +120,9 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
       </NavbarContent>
 
       <NavbarContent className={`lg:hidden font-bold ${searchFocused ? 'hidden' : ''}`}>
-        Kawa
+        <Link className="text-text" href="/">
+          Kawa
+        </Link>
       </NavbarContent>
 
       <NavbarContent>
