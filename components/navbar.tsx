@@ -7,7 +7,7 @@ import { Kbd } from "@nextui-org/kbd";
 import Link from "next/link";
 import { Input } from "@nextui-org/input";
 
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { MarkDownContent } from "@/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +17,24 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchList, setSearchList] = useState<MarkDownContent[]>([])
   const searchRef = useRef<HTMLInputElement>(null);
+
+  // Handle ctrl+k for search
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === "k") {
+        event.preventDefault();
+        if (searchRef.current) {
+          searchRef.current.focus();
+        }
+      }
+    };
+
+    document.body.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []); // Empty dependency array to run effect only once
 
   const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (!blogContents) {
@@ -63,7 +81,7 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
           input: "text-sm",
         }}
         endContent={
-          <Kbd className="hidden lg:inline-block" keys={["command"]}>
+          <Kbd className="hidden lg:inline-block bg-surface1 text-text" keys={["command"]}>
             K
           </Kbd>
         }
@@ -83,8 +101,8 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
       >
         <ul className="list-none">
           {searchList.map((blog, idx) => {
-            return <li key={idx}>
-              <Link href={blog.data.url} className="text-text hover:bg-surface1 rounded w-full p-4">
+            return <li key={idx} className="">
+              <Link href={blog.data.url} className="text-text hover:bg-surface1 rounded w-full p-4 flex items-center">
                 <FontAwesomeIcon icon={faFileLines} size="xl" className="mr-4" />
                 <div>
                   <p className="text-xl">
