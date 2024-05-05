@@ -4,16 +4,13 @@ import {
   NavbarContent,
 } from "@nextui-org/navbar";
 import { Kbd } from "@nextui-org/kbd";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { Input } from "@nextui-org/input";
 
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
-
-import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { MarkDownContent } from "@/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines } from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) => {
 
@@ -106,10 +103,10 @@ export const Navbar = ({ blogContents }: { blogContents?: MarkDownContent[] }) =
   );
 
   return (
-    <NextUINavbar className="ml-16 lg:ml-0 bg-mantle w-[calc(100dvw-4rem)] lg:w-full text-text " isBlurred={true}>
+    <NextUINavbar className="ml-16 lg:ml-0 bg-mantle w-[calc(100dvw-4rem)] lg:w-full text-text" isBlurred={true} maxWidth="xl">
       <NavbarContent className={`items-center font-bold ${searchFocused ? 'hidden' : ''}`}>
-        <Link className="text-text" href={"/"}>
-          /ˈkɑːwə/
+        <Link href="/" className="text-text">
+          <p className="font-bold cursor-pointer select-none">/ˈkɑːwə/</p>
         </Link>
       </NavbarContent>
 

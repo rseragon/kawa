@@ -20,7 +20,7 @@ export default function Sidebar() {
   return (
     <>
       <div className={`lg:hidden fixed top-0 z-50`}>
-        <div className={`h-16 bg-mantle flex items-center justify-center w-16 p-4`} onClick={() => setShowFullSidebar(prev => !prev)}>
+        <div className={`h-16 cursor-pointer bg-mantle flex items-center justify-center w-16 p-4`} onClick={() => setShowFullSidebar(prev => !prev)}>
           <FontAwesomeIcon icon={faBars} size="2xl" color="white" />
         </div>
       </div>
@@ -92,7 +92,7 @@ function SideBarContents({ toggleSideBar, className }: { toggleSideBar?: Dispatc
 
 function SideBarNavItem({ children, href, onClickHandler }: { children: ReactNode, href: string, onClickHandler: any }) {
   return <Link href={href} className="w-full" onClick={onClickHandler}>
-    <li className="mb-1 w-full hover:border-b py-2.5 px-6 flex items-baseline rounded-lg hover:bg-base">
+    <li className="mb-1 w-11/12 hover:border-b py-2.5 px-6 flex items-baseline rounded-lg hover:bg-base">
       {children}
     </li>
   </Link>
